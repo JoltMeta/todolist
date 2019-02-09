@@ -3,10 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\todo;
+use DB;
 
 class TodosController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index',  'show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +58,7 @@ class TodosController extends Controller
         $todo->text = $request->input('text');
         $todo->due = $request->input('due');
         $todo->body = $request->input('body');
-
+        $todo->user_id = auth()->user()->id;
         $todo->save();
 
         return redirect('/')->with('Success', 'Todo Created');
@@ -74,6 +85,9 @@ class TodosController extends Controller
     public function edit($id)
     {
         $todo = Todo::find($id);
+        // if(auth()->user()->id !==$todo->user_id){
+        //     return redirect('/')->with('error', 'Unauthorized page');
+        // }
         return view('todos.edit')->with('todo', $todo);
     }
 
@@ -105,6 +119,9 @@ class TodosController extends Controller
     public function destroy($id)
     {
         $todo = Todo::find($id);
+        // if(auth()->user()->id !==$todos->user_id){
+        //     return redirect('/')->with('error', 'Unauthorized page');
+        // }
         $todo->delete();
         return redirect('/')->with('Success', 'Todo Deleted');
     }

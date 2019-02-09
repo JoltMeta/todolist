@@ -9,6 +9,7 @@
             <h3><a href="todo/{{$todo->id}}">{{$todo->text}}</a></h3>
             <p class="lead">{{$todo->body}}</p>
                 <span class="label label-danger">{{$todo->due}}</span>
+                {{-- <small>{{$todo->user->name}}</small> --}}
             </div>
         </div>
         @endforeach
