@@ -9,6 +9,9 @@
                 <li class="nav-item">
                   <a class="nav-link" href="/create">Create Todo</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/albums/index">Gallery</a>
+            </li>
           </ul>
           <!-- Right Side Of Navbar -->
           <ul class="navbar-nav ml-auto">
